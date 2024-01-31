@@ -4,6 +4,31 @@
   
     
     <entry>
+      <title>springboot项目快速开发</title>
+      <link href="/2024/01/31/springboot%E9%A1%B9%E7%9B%AE%E5%BF%AB%E9%80%9F%E5%BC%80%E5%8F%91/"/>
+      <url>/2024/01/31/springboot%E9%A1%B9%E7%9B%AE%E5%BF%AB%E9%80%9F%E5%BC%80%E5%8F%91/</url>
+      
+        <content type="html"><![CDATA[<h1 id="Springboot"><a href="#Springboot" class="headerlink" title="Springboot"></a>Springboot</h1><h2 id="开发环境"><a href="#开发环境" class="headerlink" title="开发环境"></a>开发环境</h2><h3 id="热部署（不推荐使用）"><a href="#热部署（不推荐使用）" class="headerlink" title="热部署（不推荐使用）"></a>热部署（不推荐使用）</h3><p>先在pom文件中导入依赖</p><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-devtools<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">optional</span>&gt;</span>true<span class="tag">&lt;/<span class="name">optional</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure><p>再修改application.properties文件</p><figure class="highlight properties"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#热部署生效</span></span><br><span class="line"><span class="attr">spring.devtools.restart.enabled</span>=<span class="string">true</span></span><br><span class="line"><span class="comment">#设置重启目录</span></span><br><span class="line"><span class="attr">spring.devtools.restart.additional-paths</span>=<span class="string">srv/main/java</span></span><br><span class="line"><span class="comment">#设置classpath目录下的WEB-INF文件夹内容修改不重启</span></span><br><span class="line"><span class="attr">spring.devtools.restart.exclude</span>=<span class="string">static/**</span></span><br></pre></td></tr></table></figure><p>idea中还需要进行设置修改</p><p><img src="https://typora-img-code01.oss-cn-chengdu.aliyuncs.com/iamfelix32/202401311638704.png" alt="image-20240131163849630"></p><p><img src="https://typora-img-code01.oss-cn-chengdu.aliyuncs.com/iamfelix32/202401311643067.png" alt="image-20240131164318004"></p><p>图一第二步有问题，可以参照图二设置。</p><h2 id="标签"><a href="#标签" class="headerlink" title="标签"></a>标签</h2><h3 id="RestController"><a href="#RestController" class="headerlink" title="@RestController"></a>@RestController</h3><p>controller层使用，在类前添加，用以接收服务器信息，会将返回的对象数据转换为json格式</p><p><img src="https://typora-img-code01.oss-cn-chengdu.aliyuncs.com/iamfelix32/202401311618310.png" alt="image-20240131161807188"></p><h3 id="RequestMapping"><a href="#RequestMapping" class="headerlink" title="@RequestMapping"></a>@RequestMapping</h3><p><img src="https://typora-img-code01.oss-cn-chengdu.aliyuncs.com/iamfelix32/202401311714109.png" alt="image-20240131171450971"></p><p><img src="https://typora-img-code01.oss-cn-chengdu.aliyuncs.com/iamfelix32/202401311758551.png" alt="image-20240131175855496"></p><h3 id="GetMapping"><a href="#GetMapping" class="headerlink" title="@GetMapping"></a>@GetMapping</h3><p>controller层使用，在方法前添加，浏览器发送get请求来访问该方法，使用时后面应该添加访问路径。@PostMapping同理</p><p><img src="https://typora-img-code01.oss-cn-chengdu.aliyuncs.com/iamfelix32/202401311621354.png" alt="image-20240131162117299"></p><h3 id="RequestParam"><a href="#RequestParam" class="headerlink" title="@RequestParam"></a>@RequestParam</h3><p>参数注释，常用于方法中。相当于给参数起个别名，一般在前后端参数命名不一致时使用。</p><p><img src="https://typora-img-code01.oss-cn-chengdu.aliyuncs.com/iamfelix32/202401311733840.png" alt="image-20240131173316793"></p><h3 id="RequestBody"><a href="#RequestBody" class="headerlink" title="@RequestBody"></a>@RequestBody</h3><p>用于接收json类型的数据，用于参数前</p><p><img src="https://typora-img-code01.oss-cn-chengdu.aliyuncs.com/iamfelix32/202401311757585.png" alt="image-20240131175731509"></p><h3 id="Slf4j"><a href="#Slf4j" class="headerlink" title="@Slf4j"></a>@Slf4j</h3><p>控制台输出注解，添加到类前，效果类似于print，配合方法log.info()使用</p><p>添加依赖</p><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.projectlombok<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>lombok<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure><p>使用</p><p><img src="https://typora-img-code01.oss-cn-chengdu.aliyuncs.com/iamfelix32/202401311811124.png" alt="image-20240131181152086"></p><p><img src="https://typora-img-code01.oss-cn-chengdu.aliyuncs.com/iamfelix32/202401311812667.png" alt="image-20240131181212623"></p>]]></content>
+      
+      
+      <categories>
+          
+          <category> springboot </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> springboot </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>git及linux常用指令</title>
       <link href="/2024/01/11/git%E5%8F%8Alinux%E5%B8%B8%E7%94%A8%E6%8C%87%E4%BB%A4/"/>
       <url>/2024/01/11/git%E5%8F%8Alinux%E5%B8%B8%E7%94%A8%E6%8C%87%E4%BB%A4/</url>
